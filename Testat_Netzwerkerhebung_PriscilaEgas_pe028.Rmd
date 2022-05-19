@@ -1,0 +1,78 @@
+---
+title: "Testat"
+subtitle: "Netzwerkerhebung Teil 2"
+author: "Priscila Egas"
+date: '2022-05-19'
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(igraph)
+```
+
+
+Die Daten und das Codebuch sind in meinem
+[Github-Account](https://github.com/pe028/Testat_Teil2_Netzwerkerhebung)
+hinterlegt.
+
+
+```{r Netzwerk einlesen}
+
+# Programmbibliothek laden
+library(igraph)
+
+# Einlesen der Edge- und Nodelist
+edges <- read.csv("https://raw.githubusercontent.com/pe028/Testat_Teil2_Netzwerkerhebung/main/Edgelist_Netzwerkerhebung_PriscilaEgas_pe028.csv", header=T, as.is=T, sep = ",")
+
+nodes <- read.csv("https://raw.githubusercontent.com/pe028/Testat_Teil2_Netzwerkerhebung/main/Nodelist_Netzwerkerhebung_PriscilaEgas_pe028.csv", header=T, as.is=T, sep = ",")
+
+# Matrix erstellen
+edgematrix <-as.matrix(edges)
+
+# Zusammenführen von Edge- und Nodelist als igraph-Objekt s
+vfb <- graph_from_data_frame(d=edgematrix, vertices=nodes, directed=F)
+vfb
+```
+
+## Datensatz vorbereiten
+
+```{r Netzwerk analysieren, fig.height=6, fig.width=9}
+
+# Attribute anzeigen lassen
+list.vertex.attributes(vfb)
+list.edge.attributes(vfb)
+
+
+# Farben für Attribut "type" festlegen
+V(vfb)[V(vfb)$type == 1]$color <- "red"
+V(vfb)[V(vfb)$type == 2]$color <- "black"
+V(vfb)[V(vfb)$type == 3]$color <- "yellow"
+
+```
+
+## Two-Mode Netzwerk
+
+```{r Two-Mode Netzwerk erstellen}
+
+# Vertex-Attribute anzeigen lassen
+list.vertex.attributes(vfb)
+
+```
+
+```{r Netzwerk visualisieren, fig.height=10, fig.width=15}
+
+# Netzwerk mit Farben visualisieren
+
+plot(vfb,
+     asp=0,
+     layout=layout_nicely,
+     vertex.size=degree(vfb)*2,
+     vertex.frame.color="grey80",
+     edge.color="grey20",
+     edge.curved=.2,
+     edge.arrow.size=.2,
+     main="Transfers zum VfB",
+     sub="Visualisierung mit Farben")
+
+```
