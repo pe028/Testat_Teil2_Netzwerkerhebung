@@ -1,6 +1,6 @@
 # Codebuch
 
-Erhoben wurde die Transfers der Spieler im aktuellen Kader des VfB zum Verein.
+Erhoben wurden die Transfers der Spieler im aktuellen Kader zum VfB Verein.
 Quelle: https://www.transfermarkt.de/vfb-stuttgart/startseite/verein/79
 Grundregeln: keine Sonderzeichen, keine Leerzeichen, etc.
 
